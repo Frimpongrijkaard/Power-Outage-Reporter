@@ -6,6 +6,5 @@ PyJWT==2.10.1
 twilio==9.4.1
 flask-jwt-extended==4.7.1
 mongoengine==0.29.1
-python==3.12.6
-gunicorn==23.0.0
+
 
