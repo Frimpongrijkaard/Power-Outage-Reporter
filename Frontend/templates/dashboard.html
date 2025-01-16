@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/dashboard.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="menu">
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('view_profile') }}">Profile</a></li>
+
+                {% if role == 'user' %}
+                <li><a href="{{ url_for('make_report') }}">Report Outage</a></li>
+                <li><a href="{{ url_for('view_reports') }}">View Reports</a></li>
+                {% elif role == 'admin' %}
+                <li><a href="{{ url_for('view_all_reports') }}">View All Reports</a></li>
+                <li><a href="{{ url_for('update_reports', report_id=1) }}">Update Reports</a></li>
+                {% endif %}
+
+                <li><a href="{{ url_for('logout') }}" class="logout-button">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <h1>Welcome, {{ user_name }}</h1>
+                <p>Your Role: {{ role | capitalize }}</p>
+            </header>
+            <main>
+                <h2>Dashboard Overview</h2>
+                {% if role == 'user' %}
+                <p>Welcome to your user dashboard. You can report power outages and view your reports here.</p>
+                {% elif role == 'admin' %}
+                <p>Welcome to the admin dashboard. Manage and update reports submitted by users.</p>
+                {% endif %}
+            </main>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> POR - Power Outage Reporter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/homepage.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Power Outage Reporter </h1>
+        <nav>
+            <a href="#report">Report Outage</a>
+            <a href="#status">Check Status</a>
+            <a href="#about">About Us</a>
+        </nav>
+    </header>
+    <div class="container">
+
+        <section class="features">
+            <div class="feature">
+                <h3>Quick Reporting</h3>
+                <p>Easily report outages with just a few clicks. We ensure fast processing of your requests.</p>
+            </div>
+            <div class="feature">
+                <h3>Real-Time Status</h3>
+                <p>Stay updated on the status of power outages in your area with live tracking.</p>
+            </div>
+            <div class="feature">
+                <h3>Reliable Support</h3>
+                <p>Our team is here to support you 24/7 and provide assistance when you need it most.</p>
+            </div>
+        </section>
+
+        <section class="hero">
+            <h3>Report Power Outages in Real-Time</h3>
+            <p>Helping you stay connected and informed. Report and track outages in your area with ease.</p>
+            <button onclick="location.href='{{ url_for('select_role') }}'">Get Started</button>
+        </section>
+    </div>
+
+    <footer>
+        <nav>
+            <a href="#">Terms of Use</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Contact Us</a>
+        </nav>
+        <p>&copy; 2025 Power Outage Reporter. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Update Reports</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/user_reports.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Admin - Update Reports</h1>
+            <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+        </header>
+
+        <main class="content">
+            {% if reports %}
+            <form method="POST" action="{{ url_for('update_reports') }}">
+                <table class="reports-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Report ID</th>
+                            <th>Description</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Last Updated</th>
+                            <th>Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for report in reports %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ report.id }}</td>
+                            <td>{{ report.description }}</td>
+                            <td>{{ report.location }}</td>
+                            <td class="status-cell">
+                                <select name="status_{{ report.id }}" class="status-dropdown" data-status-dropdown>
+                                    <option value="Pending" {% if report.status == 'Pending' %}selected{% endif %}>Pending</option>
+                                    <option value="In Progress" {% if report.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                                    <option value="Resolved" {% if report.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+                                </select>
+                            </td>
+                            <td>{{ report.timestamp or 'Never' }}</td>
+                            <td>
+                                <input type="checkbox" name="update_{{ report.id }}" value="1">
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="form-actions">
+                    <button type="submit" class="update-button">Update Reports</button>
+                </div>
+            </form>
+            {% else %}
+            <p class="no-reports">No reports available.</p>
+            {% endif %}
+        </main>
+    </div>
+</body>
+</html>

@@ -1,5 +1,11 @@
 PyMongo==3.11.4
-Flask==2.0.1
+Flask==3.1.0
 Requests==2.25.1
-
+python-dotenv=1.0.1
+PyJWT==2.10.1
+twilio==9.4.1
+flask-jwt-extended==4.7.1
+mongoengine==0.29.1
+python==3.12.6
+gunicorn==23.0.0
 

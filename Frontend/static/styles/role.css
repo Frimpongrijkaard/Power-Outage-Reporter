@@ -1,0 +1,113 @@
+/* General container styling */
+.role-selection-container {
+    text-align: center;
+    margin: auto;
+    padding: 30px;
+    max-width: 400px;/* Adjusted for smaller screens */
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    top: 60%;
+    transform: translateY(50%);
+
+}
+
+/* Heading styles */
+.role-selection-container h1 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.role-selection-container p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Radio buttons styling */
+.radio-group {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Ensure wrapping on smaller screens */
+}
+
+.radio-group label {
+    display: inline-block;
+    margin: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.radio-group label:hover {
+    transform: scale(1.05);
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* Buttons styling */
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Ensure buttons stack on smaller screens */
+    gap: 10px; /* Add spacing between buttons */
+}
+
+.action-buttons button {
+    padding: 12px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 10px;
+}
+
+.action-buttons button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Responsive design adjustments */
+@media screen and (max-width: 768px) {
+    .role-selection-container h1 {
+        font-size: 1.5em; /* Smaller font size for smaller screens */
+    }
+
+    .role-selection-container p {
+        font-size: 1em;
+    }
+
+    .radio-group label {
+        font-size: 1em; /* Adjust label size for readability */
+    }
+
+    .action-buttons button {
+        width: 100%; /* Make buttons full-width for smaller screens */
+        padding: 15px; /* Larger padding for touch-friendly UI */
+        font-size: 1.2em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .role-selection-container {
+        padding: 20px; /* Reduce padding for extra-small screens */
+    }
+
+    .role-selection-container h1 {
+        font-size: 1.2em;
+    }
+
+    .action-buttons button {
+        font-size: 1em; /* Adjust button size for very small screens */
+    }
+}
+

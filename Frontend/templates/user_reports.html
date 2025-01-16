@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Reports</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/user_reports.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>My Reports</h1>
+            <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+        </header>
+
+        <main class="content">
+            {% if reports %}
+            <table class="reports-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for report in reports %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ report.description }}</td>
+                        <td>{{ report.location }}</td>
+                        <td class="status {{ report.status|lower }}">{{ report.status }}</td>
+                        <td>{{ report.timestamp }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-reports">You have not submitted any reports yet.</p>
+            {% endif %}
+        </main>
+    </div>
+</body>
+</html>

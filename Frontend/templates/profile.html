@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/profile.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="profile-header">
+            <h1>My Profile</h1>
+            <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+        </header>
+
+        <main class="profile-content">
+            <section class="profile-details">
+                <img src="{{ url_for('static', filename='images/default-avatar.png') }}" alt="Profile Picture" class="profile-picture">
+                <h2>{{ user_name }}</h2>
+                <p>Email: {{ email }}</p>
+                <p>Phone: {{ phone }}</p>
+            </section>
+
+            <section class="edit-profile-form">
+                <h2>Edit Profile</h2>
+                <form action="{{ url_for('update_profile') }}" method="POST">
+                    <label for="username">Name:</label>
+                    <input type="text" id="username" name="username" value="{{ user_name }}" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="{{ email }}" required>
+
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" value="{{ phone }}">
+
+                    <button type="submit" class="update-button">Save Changes</button>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

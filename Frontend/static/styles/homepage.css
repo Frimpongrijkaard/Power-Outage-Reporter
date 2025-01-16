@@ -1,0 +1,157 @@
+/* Custom styles for the Power Outage Reporter */
+
+/ header {
+    background-color: #343a40;
+    color: white;
+    padding: 20px 10px;
+    display: flex;
+    align-items: center; /* Vertically center content in the header */
+    justify-content: space-between; /* Ensure space between h1 and nav */
+}
+
+header h1 {
+    font-size: 1.9rem;
+    font-weight: bold;
+    margin: 0;
+    text-align: left;
+    flex: 1; /* Allow h1 to occupy its space */
+}
+
+header nav {
+    flex: 2; /* Allow nav to grow */
+    text-align: center; /* Center the links */
+}
+
+header nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.2rem;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+header nav a:hover {
+    background-color: #495057; /* Add hover effect */
+    text-decoration: none; /* Keep hover consistent */
+}
+
+
+/* Container styles */
+.container {
+    padding: 40px 15px;
+}
+
+/* Hero section */
+.hero {
+    text-align: center;
+    background-color: #f8f9fa;
+    padding: 50px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.hero h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.hero button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.hero button:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+/* Features section */
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.feature {
+    background-color: #ffffff;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    padding: 20px;
+    flex: 1 1 calc(33% - 40px);
+    max-width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.feature:hover {
+    transform: scale(1.05);
+}
+
+.feature h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #343a40;
+}
+
+.feature p {
+    color: #666666;
+    font-size: 1rem;
+}
+
+/* Footer styles */
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    margin-top: 30px;
+}
+
+footer nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+footer nav a:hover {
+    text-decoration: underline;
+}
+
+footer p {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .features {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .feature {
+        flex: 1 1 100%;
+    }
+
+    header nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header nav a {
+        margin: 5px 0;
+    }
+}

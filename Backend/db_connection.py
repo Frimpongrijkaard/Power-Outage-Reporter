@@ -1,7 +1,10 @@
-from pymongo import MongoClient
+from mongoengine import connect
+from dotenv import load_dotenv
+import os
 
-# Connect to a MongoDB instance (local or remote)
-client = MongoClient("mongodb://localhost:27017/")
+load_dotenv()
 
-# Access a specific database
-db = client["mydatabase"]
+
+def init_db_connection(DB, URI):
+    CON = connect(db=DB, host=URI, alias='default')
+    return CON

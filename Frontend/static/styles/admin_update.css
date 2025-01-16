@@ -1,0 +1,159 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.logout-button {
+    background-color: #ff4b5c;
+    color: #fff;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.logout-button:hover {
+    background-color: #ff1e2d;
+}
+
+/* Table styles */
+.reports-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.reports-table th, .reports-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.reports-table th {
+    background-color: #f4f4f4;
+}
+
+.status-dropdown {
+    width: 100%;
+    padding: 5px;
+}
+
+.form-actions {
+    text-align: right;
+}
+
+.update-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.update-button:hover {
+    background-color: #45a049;
+}
+
+/* Status Colors */
+.status-cell {
+    text-align: center;
+}
+
+.status-pending {
+    color: #ffcc00; /* Yellow for Pending */
+    color: #000;
+}
+
+.status-in-progress {
+    color: #007bff; /* Blue for In Progress */
+    color: #fff;
+}
+
+.status-resolved {
+    color: #28a745; /* Green for Resolved */
+    color: #fff;
+}
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logout-button {
+        margin-top: 10px;
+    }
+
+    .reports-table {
+        font-size: 14px;
+    }
+
+    .reports-table th, .reports-table td {
+        padding: 8px;
+    }
+
+    .reports-table th, .reports-table td:nth-child(n+4) {
+        display: none; /* Hide less relevant columns on smaller screens */
+    }
+
+    .reports-table td:nth-child(1)::before {
+        content: "No:";
+        font-weight: bold;
+    }
+
+    .reports-table td:nth-child(2)::before {
+        content: "Report ID:";
+        font-weight: bold;
+    }
+
+    .reports-table td:nth-child(3)::before {
+        content: "Description:";
+        font-weight: bold;
+    }
+
+    .form-actions {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    .reports-table th, .reports-table td {
+        font-size: 12px;
+    }
+
+    .status-dropdown {
+        font-size: 12px;
+    }
+
+    .update-button {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+    }
+}

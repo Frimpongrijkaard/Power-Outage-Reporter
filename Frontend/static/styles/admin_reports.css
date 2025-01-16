@@ -1,0 +1,110 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.logout-button {
+    padding: 8px 15px;
+    background-color: #f44336;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Table Styles */
+.reports-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.reports-table th,
+.reports-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.reports-table th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+.reports-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.status {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.status.open {
+    color: #4CAF50;
+}
+
+.status.closed {
+    color: #f44336;
+}
+
+.status.pending {
+    color: #ff9800;
+}
+
+/* No Reports Message */
+.no-reports {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin: 20px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .reports-table th,
+    .reports-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .logout-button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
