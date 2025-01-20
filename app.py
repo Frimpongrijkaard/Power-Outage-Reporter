@@ -4,7 +4,6 @@ from Backend.db_connection import init_db_connection
 from Backend.routes.auth_user import auth_bp
 from Backend.routes.outage_route import outage_bp
 from Backend.routes.admin_route import admin_bp
-from flask import Flask, send_from_directory
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from werkzeug.security import check_password_hash, generate_password_hash
 from Backend.model.user import User
@@ -15,9 +14,9 @@ import os
 
 
 app = Flask(__name__, template_folder="Frontend/templates", static_folder="Frontend/static" )
-app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "JjQg63PgKbr1ac,dFF246810")
+app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=10)
-app.secret_key = os.getenv("SECRET_KEY", "r!ac,iED$su2@3458994")
+app.secret_key = os.getenv("SECRET_KEY")
 
 
 
@@ -27,7 +26,14 @@ def home():
 
 # Initialize extensions
 jwt = JWTManager(app)
-init_db_connection(DB="power_outage_db",  URI='mongodb://127.0.0.1:27017')
+def main():
+    try:
+        init_db_connection(DB='Report_database_db', URI='mongodb://localhost:27017/Report_database_db')
+    except Exception as e:
+        print(f"Error connecting to the database: {e}")
+        return None
+
+main()
 
 # Register blueprints
 app.register_blueprint(auth_bp, url_prefix="/auth")
@@ -37,28 +43,28 @@ app.register_blueprint(admin_bp, url_prefix="/admin")
 @app.route("/select_role", methods=["GET", "POST"])
 def select_role():
     if request.method == "POST":
-        role = request.form.get("role")  # Get the selected role (user/admin)
-        action = request.form.get("action")  # Get the action (signup/signin)
+        role = request.form.get("role")  
+        action = request.form.get("action")  
 
         if role == "user" and action == "signup":
-            return redirect("/register/user")  # Redirect to user registration
+            return redirect("/register/user") 
         elif role == "user" and action == "signin":
-            return redirect("/login/user")  # Redirect to user login
+            return redirect("/login/user")  
         elif role == "admin" and action == "signup":
-            return redirect("/register/admin")  # Redirect to admin registration
+            return redirect("/register/admin")  
         elif role == "admin" and action == "signin":
-            return redirect("/login/admin")  # Redirect to admin login
+            return redirect("/login/admin")  
         else:
             flash("Invalid selection. Please try again.")
             return redirect("/select_role")
 
-    return render_template("role.html")  # Render the page for GET requests
+    return render_template("role.html")  
 
         
 @app.route("/login/user", methods=["GET", "POST"])
 def login_user():
-    if "user_id" in session:  # Check if the user is already logged in
-        return redirect("/dashboard")  # Redirect to the dashboard or home
+    if "user_id" in session:  
+        return redirect("/dashboard")  
 
     if request.method == "POST":
         email = request.form["email"]
@@ -67,10 +73,10 @@ def login_user():
         user = User.objects(email=email, role="user").first()
 
         if user and check_password_hash(user.password, password):
-            session["user_id"] = str(user.id)  # Store user session ID
-            session["role"] = "user"  # Set the role as 'user'
+            session["user_id"] = str(user.id)  
+            session["role"] = "user"  
             flash("User Login Successful")
-            return redirect("/dashboard")  # Redirect to home or dashboard
+            return redirect("/dashboard")  
         else:
             flash("Invalid email or password")
     return render_template("UserLogin.html")
@@ -78,8 +84,8 @@ def login_user():
 
 @app.route("/login/admin", methods=["GET", "POST"])
 def login_admin():
-    if "user_id" in session:  # Check if the user is already logged in
-        return redirect("/dashboard")  # Redirect to the dashboard or home
+    if "user_id" in session:  
+        return redirect("/dashboard")  
 
     if request.method == "POST":
         email = request.form["email"]
@@ -89,10 +95,10 @@ def login_admin():
         user = User.objects(email=email, role="admin").first()
 
         if user and check_password_hash(user.password, password) and user.adminpin == adminpin:
-            session["user_id"] = str(user.id)  # Store user session ID
-            session["role"] = "admin"  # Set the role as 'admin'
+            session["user_id"] = str(user.id)
+            session["role"] = "admin"  
             flash("Admin Login Successful")
-            return redirect("/dashboard")  # Redirect to admin dashboard
+            return redirect("/dashboard")  
         else:
             flash("Invalid credentials")
     return render_template("AdminLogin.html")
@@ -159,22 +165,21 @@ def register_admin():
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    role = session.get('role')  # Get role from session, it should now be set correctly
-    user_name = session.get('user_name', 'Guest')  # Get user_name from session, default to 'Guest'
+    role = session.get('role')  
+    user_name = session.get('user_name', 'Guest')  
 
-    if not role:  # If role is not set in session, redirect to the login page
+    if not role:  
         return redirect('/login/admin' if 'admin' in request.url else '/login/user')
 
-    # Render the dashboard with the appropriate role-based content
     return render_template('dashboard.html', role=role, user_name=user_name)
 
 
 
 @app.route('/view_profile', methods=['GET'])
 def view_profile():
-    user_id = session.get('user_id')  # Use session data instead of JWT
+    user_id = session.get('user_id')  
     if not user_id:
-        return redirect('/login/user')  # Redirect to login if the user is not authenticated
+        return redirect('/login/user')  
 
     user = User.objects(id=user_id).first()
     if not user:
@@ -184,9 +189,8 @@ def view_profile():
 
 
 @app.route('/make_report', methods=['GET', 'POST'])
-##@jwt_required()  # Require JWT token for authentication
 def make_report():
-    user_id = session.get('user_id')  # Get the authenticated user's ID from the JWT token
+    user_id = session.get('user_id')  
     user = User.objects(id=user_id).first()
 
     if not user:
@@ -204,7 +208,7 @@ def make_report():
     # Handle form data submission
     description = request.form.get('description')
     location = request.form.get('location')
-    status = request.form.get('status', 'pending')  # Default to 'pending' if not provided
+    status = request.form.get('status', 'pending') 
 
     # Validate the inputs
     if not description or not location:
@@ -222,7 +226,7 @@ def make_report():
         description=description,
         location=location,
         status=status,
-        timestamp=datetime.now  # Record the submission time
+        timestamp=datetime.now  
     )
     outage.save()
 
@@ -271,7 +275,7 @@ def update_reports():
     if request.method == 'POST':
         updated_reports = []
         for report_id, new_status in request.form.items():
-            if report_id.startswith('status_'):  # Identify status fields
+            if report_id.startswith('status_'):  
                 report_id = report_id.replace('status_', '')
                 report = Outage.objects(id=report_id).first()
                 if report and new_status:
@@ -301,11 +305,14 @@ def logout():
     session.clear()
     flash("You have been successfully logged out.", "success")
     if 'role' in session and session['role'] == 'admin':
-        return redirect(url_for('home'))  # Admin login
+        return redirect(url_for('home')) 
     else:
-        return redirect(url_for('home'))  # User login
+        return redirect(url_for('home'))  
 
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
